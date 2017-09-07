@@ -26,7 +26,7 @@ export default class CreatureTypeDropdown extends Component {
         let creatures = this.state.creature_types;
         return (
             <label>
-              Pick your favorite La Croix flavor: 
+              Pick a creature type: 
               <select onChange={this.onChange}>
                 {creatures.map( (i) => {
                     return (<option value={i.name} key={i.id}>{i.name}</option>);
