@@ -20,18 +20,18 @@ class App extends Component {
   };
 
   hitDiceChange = (hitdice) => {
-    console.log("hit dice: " + hitdice);
+    //console.log("hit dice: " + hitdice);
     this.setState({ hitDice: hitdice});
     this.setBaseValues(this.state.creatureId, hitdice);
   };
 
   coreStatsChange = (cs) => {
-    console.log("updating core stats on app");
+   // console.log("updating core stats on app");
     this.setState({coreStats : cs});
   }
 
   setBaseValues = (creature_id, hitdice) => {
-    console.log("setting new base values for creature id " + creature_id + " with HD of " + hitdice);
+    //console.log("setting new base values for creature id " + creature_id + " with HD of " + hitdice);
     var cs = new CreatureStats(creature_id, hitdice);
     this.setState({creatureStats : cs});
   };

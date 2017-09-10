@@ -3,9 +3,9 @@ import React, {Component} from 'react';
 export default class StatsOutput extends Component {
     
     calculateBab = (props) => {
-        console.log("multiplier is " + this.props.CreatureStats.babMult);
-        console.log("hit dice are " + this.props.CreatureStats.hitDice);
-        console.log("strength mod is " + this.props.CoreStats.strengthMod);
+        // console.log("multiplier is " + this.props.CreatureStats.babMult);
+        // console.log("hit dice are " + this.props.CreatureStats.hitDice);
+        // console.log("strength mod is " + this.props.CoreStats.strengthMod);
         // console.log("logging core stats");
         // console.log(this.props.CoreStats);
         var base = Math.trunc(this.props.CreatureStats.babMult * this.props.CreatureStats.hitDice)
@@ -43,6 +43,33 @@ export default class StatsOutput extends Component {
         );
     }
 
+    calculateHitPointString = (props) => {
+        var hpBonus = (this.props.CoreStats.conMod * this.props.CreatureStats.hitDice).toString();
+        var hdString = "";
+        var hd = this.props.CreatureStats.hitDieSize;
+        hdString = (this.props.CreatureStats.hitDice) + "d" + (hd) + " + " + hpBonus;
+
+        return hdString;
+    };
+
+    calculateHitPointAverage = (props) => {
+        var hp = "";
+        var hd = this.props.CreatureStats.hitDieSize;
+        var hpBonus = (this.props.CoreStats.conMod * this.props.CreatureStats.hitDice).toString();
+        var creatureType = this.props.CreatureStats.creatureId;
+        if (creatureType === 5 || creatureType === 9 || creatureType === 3) {
+            let base = Number(hd);
+            let perLevel = Math.floor((hd/2) + 0.5) * (this.props.CreatureStats.hitDice - 1);
+            let total = Number(base) + Number(perLevel) + Number(hpBonus);
+            hp = total.toString();
+        } else {
+            let perLevel = Math.floor((hd/2) + 0.5) * (this.props.CreatureStats.hitDice);
+            let total = Number(perLevel) + Number(hpBonus);
+            hp = total.toString();
+        }
+        return hp;
+    };
+
     render() {
         return (
             <div>
@@ -57,7 +84,9 @@ export default class StatsOutput extends Component {
                 Will Save: {this.calculateWill(this.props)}
                 <br />
                 Skill Points: {this.calculateSkills(this.props)}
-                </label>
+                <br />
+                Hit Points: {this.calculateHitPointString(this.props)} ({this.calculateHitPointAverage(this.props)})
+                </label>                
             </div>
         );
     }

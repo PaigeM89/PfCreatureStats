@@ -49,7 +49,7 @@ export default class CreatureStats {
     };
 
     setCoreStats = () => {
-        console.log("setting core creature stat values");
+        //console.log("setting core creature stat values");
         switch (this.creatureId) {
             case 0: //abberation
                 this.setStats(0.75, false, false, true, 4);
