@@ -52,6 +52,12 @@ export default class StatsOutput extends Component {
         return hdString;
     };
 
+    getHp = (hd, c) => {        
+        let perLevel = hd/2 + 0.5;
+        let t = perLevel * c;
+        return Math.floor(t);
+    }
+
     calculateHitPointAverage = (props) => {
         var hp = "";
         var hd = this.props.CreatureStats.hitDieSize;
@@ -59,11 +65,11 @@ export default class StatsOutput extends Component {
         var creatureType = this.props.CreatureStats.creatureId;
         if (creatureType === 5 || creatureType === 9 || creatureType === 3) {
             let base = Number(hd);
-            let perLevel = Math.floor((hd/2) + 0.5) * (this.props.CreatureStats.hitDice - 1);
+            let perLevel = this.getHp(hd, this.props.CreatureStats.hitDice - 1);
             let total = Number(base) + Number(perLevel) + Number(hpBonus);
             hp = total.toString();
         } else {
-            let perLevel = Math.floor((hd/2) + 0.5) * (this.props.CreatureStats.hitDice);
+            let perLevel = this.getHp(hd, this.props.CreatureStats.hitDice);
             let total = Number(perLevel) + Number(hpBonus);
             hp = total.toString();
         }
